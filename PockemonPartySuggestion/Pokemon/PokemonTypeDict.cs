@@ -37,7 +37,7 @@ namespace PokemonPartySuggestion.Pokemon
     /// ポケモンのタイプ名表記をPokemonTypeに変換する辞書
     /// </summary>
     public class PokemonTypeDict{
-        public PokemonType this[String key]{/
+        public PokemonType this[String key]{
             get {return pokemonTypeDict[key];}
         }
         static PokemonTypeDict(){
@@ -60,8 +60,8 @@ namespace PokemonPartySuggestion.Pokemon
             pokeDict.Add("ノーマル", PokemonType.Normal);
             pokeDict.Add("ほのお", PokemonType.Fire);
             pokeDict.Add("みず", PokemonType.Water);
-            pokeDict.Add("くさ", PokemonType.Grass);
             pokeDict.Add("でんき", PokemonType.Electric);
+            pokeDict.Add("くさ", PokemonType.Grass);
             pokeDict.Add("こおり", PokemonType.Ice);
             pokeDict.Add("かくとう", PokemonType.Fighting);
             pokeDict.Add("どく", PokemonType.Poison);
