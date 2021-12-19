@@ -13,7 +13,7 @@ namespace PokemonPartySuggestion.Pokemon
     /// Keyはポケモンの名前
     /// Valueはポケモンのステータス
     /// </summary>
-    class PokemonDict : Dictionary<String, PokemonStatus>
+    public class PokemonDict : Dictionary<String, PokemonStatus>
     {
         /// <summary>
         /// 図鑑の読み込み
@@ -48,6 +48,7 @@ namespace PokemonPartySuggestion.Pokemon
                             SpAtk = spAtk,
                             SpDef = spDef,
                             Speed = speed,
+                            Sum = sum,
                         };
                         var pokemonStatus = new PokemonStatus(){
                             No = parameters[0],
