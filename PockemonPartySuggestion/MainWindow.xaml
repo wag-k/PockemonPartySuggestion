@@ -5,8 +5,325 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PockemonPartySuggestion"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="PokemonPartyConsultant" Height="450" Width="800"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- ToggleButton Style Template -->
+        <!-- ImageBrushに画像を使うみたいだが、ちょうどいいのがなかったため省略 -->
+        <ImageBrush x:Key="BrushTButton_MouseOver"></ImageBrush>
+        <!-- TextFont Style -->
+        <Style x:Key="font_style" TargetType="TextBlock">
+            <Setter Property="FontFamily"
+                    Value="Arial"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="FontSize"
+                    Value="20"/>
+        </Style>
+        
+        <!-- Tooltip Style Template -->
+        <Style TargetType="ToolTip" x:Key="tooltip_style">
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#00528C"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+        </Style>
+        
+        <!-- AppCloseButton Style Template -->
+        <ImageBrush x:Key="ButtonClose_MouseOver" ImageSource="Assets/img_button_close_MouseOver.png"/>
+        <Style x:Key="btn_close" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource ButtonClose_MouseOver}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="toggle_button_style" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="Border"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="True">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                        TargetName="Border"
+                                        Value="{StaticResource BrushTButton_MouseOver}"/>
+                                <Setter Property="BorderBrush"
+                                        TargetName="Border"
+                                        Value="{StaticResource BrushTButton_MouseOver}"/>
 
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" 
+                                            TargetName="Border"
+                                            Value="{StaticResource BrushTButton_MouseOver}"/>
+                                <Setter Property="BorderBrush"
+                                            TargetName="Border"
+                                            Value="{StaticResource BrushTButton_MouseOver}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+                
+            </Setter>
+        </Style>
+        
+    </Window.Resources>
+    <Grid>
+        <Grid Background="#003459">
+            <!-- Background Image-->
+            <Grid x:Name="GridBackground" PreviewMouseLeftButtonDown="GridBackground_PreviewMouseLeftButtonDown">
+                <Grid.Background>
+                    <ImageBrush x:Name="BackgroundImageBrush"
+                                ImageSource="Assets/img_background.png"
+                                Stretch="None"/>
+                </Grid.Background>                
+            </Grid>
+            <!-- App Close Button -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="ButtonClose"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Height="40"
+                        Width="40"
+                        BorderThickness="0"
+                        Style="{StaticResource btn_close}" Click="ButtonClose_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="./Assets/img_button_close_default.png"
+                                    Stretch="UniformToFill"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+            
+            <!-- Navigation Panel -->
+            <Grid x:Name="GridNav" Width="65" HorizontalAlignment="Left" Background="#00528c">
+                <StackPanel x:Name="StackMenu">
+                    <Grid Height="90">
+                        <!-- Menu Title Text-->
+                        <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="73, -20, 0, 0"
+                               Text="M E N U"
+                               Foreground="White"
+                               FontSize="22"
+                               Background="Transparent"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource font_style}">
+                        <!-- Shadow Effect -->
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="10"
+                                              ShadowDepth="1"
+                                              Direction="-90"
+                                              Color="White"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+
+                        <ToggleButton x:Name="ToggleBtnMenu" 
+                                  Grid.Column="0" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center"
+                                  Height="30" Width="30"
+                                  BorderThickness="0"
+                                  Style="{StaticResource ResourceKey=toggle_button_style}" Unchecked="ToggleBtnMenu_Unchecked" Checked="ToggleBtnMenu_Checked">
+                            <!-- ToggleButton default background -->
+                            <ToggleButton.Background>
+                                <ImageBrush ImageSource="Assets/img_menu.png" Stretch="UniformToFill"></ImageBrush>
+                            </ToggleButton.Background>
+                            <!-- Checked/Unchecked Event -->
+                            <ToggleButton.Triggers>
+                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="HideStackPanel">
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="GridNav"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="230" To="65"
+                                                Duration="0:0:0.2">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+
+                                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                    <BeginStoryboard>
+                                        <Storyboard x:Name="ShowStackPanel">
+                                            <DoubleAnimation 
+                                                Storyboard.TargetName="GridNav" 
+                                                Storyboard.TargetProperty="Width" 
+                                                BeginTime="0:0:0" 
+                                                From="65" To="230" 
+                                                Duration="0:0:0.3">
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ToggleButton.Triggers>
+                        </ToggleButton>
+                    </Grid>
+                    <!-- ListView with menu list items -->
+                    <ListView x:Name="ListViewMenuItems"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                        <!-- Home -->
+                        <ListViewItem HorizontalAlignment="Left"
+                                  Margin="0, 0, 0, 15" MouseEnter="ListViewItem_MouseEnter"
+                                  >
+                            <StackPanel Orientation="Horizontal"
+                                    Width="230" Height="40">
+                                <Image Source="Assets/img_home.png"
+                                       Width="40"
+                                   Stretch="UniformToFill"
+                                   Margin="12,0,0,0"/>
+                                <TextBlock Text="Home"
+                                       Margin="25, 0, 0, 0"
+                                       Style="{StaticResource font_style}">
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Tooltip -->
+                            <ListViewItem.ToolTip>
+                                <ToolTip x:Name="HomeToolTip"
+                                     Content="Home"
+                                     Style="{StaticResource tooltip_style}"/>
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+                        <!-- Analysis -->
+                        <ListViewItem HorizontalAlignment="Left"
+                                  Margin="0, 0, 0, 15"  
+                                  MouseEnter="ListViewItem_MouseEnter"
+                                  >
+                            <StackPanel Orientation="Horizontal"
+                                    Width="230" Height="40">
+                                <Image Source="Assets/img_analysis.png"
+                                   Stretch="UniformToFill"
+                                   Margin="12,0,0,0"/>
+                                <TextBlock Text="PartyAnalysis"
+                                       Margin="25, 0, 0, 0"
+                                       Style="{StaticResource font_style}">
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Tooltip -->
+                            <ListViewItem.ToolTip>
+                                <ToolTip x:Name="AnalysisToolTip"
+                                     Content="Analysis"
+                                     Style="{StaticResource tooltip_style}"/>
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+
+                        <!--  AI suggestion -->
+                        <ListViewItem HorizontalAlignment="Left"
+                                  Margin="0, 0, 0, 15"
+                                   MouseEnter="ListViewItem_MouseEnter">
+                            <StackPanel Orientation="Horizontal"
+                                    Width="230" Height="40">
+                                <Image Source="Assets/img_ai_consultant.png"
+                                   Stretch="UniformToFill"
+                                   Margin="12,0,0,0"/>
+                                <TextBlock Text="Party Suggestion"
+                                       Margin="25, 0, 0, 0"
+                                       Style="{StaticResource font_style}">
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Tooltip -->
+                            <ListViewItem.ToolTip>
+                                <ToolTip x:Name="SuggestionToolTip"
+                                     Content="Suggest"
+                                     Style="{StaticResource tooltip_style}"/>
+                            </ListViewItem.ToolTip>
+                        </ListViewItem>
+
+                        <!-- ListView items style template -->
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border x:Name="BorderListViewMenu"
+                                                Height="50"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                Background="{TemplateBinding Background}"
+                                                Padding="{TemplateBinding Padding}"
+                                                SnapsToDevicePixels="True">
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsMouseOver" Value="True"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="Background"
+                                                        TargetName="BorderListViewMenu"
+                                                        Value="#404D5B"/>
+                                                    <Setter Property="BorderBrush"
+                                                        TargetName="BorderListViewMenu"
+                                                        Value="#404D5B"/>
+
+                                                </MultiTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

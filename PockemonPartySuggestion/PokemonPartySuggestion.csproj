@@ -8,6 +8,41 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath></OutputPath>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\img_ai_consultant.png" />
+    <None Remove="Assets\img_analysis.png" />
+    <None Remove="Assets\img_background.png" />
+    <None Remove="Assets\img_button_close_default.png" />
+    <None Remove="Assets\img_button_close_MouseOver.png" />
+    <None Remove="Assets\img_home.png" />
+    <None Remove="Assets\img_menu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\img_ai_consultant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_analysis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_button_close_default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_button_close_MouseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img_menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

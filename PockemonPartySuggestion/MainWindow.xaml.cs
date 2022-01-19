@@ -24,5 +24,42 @@ namespace PockemonPartySuggestion
         {
             InitializeComponent();
         }
+
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+            if(ToggleBtnMenu.IsChecked == true){
+                SwitchListViewToolTip(Visibility.Collapsed);
+            } else{
+                SwitchListViewToolTip(Visibility.Visible);
+            }
+        }
+
+        void SwitchListViewToolTip(Visibility visibility){
+            // Set tooltip visibility
+            HomeToolTip.Visibility = visibility;
+            AnalysisToolTip.Visibility = visibility;
+            SuggestionToolTip.Visibility = visibility;
+        }
+
+        private void ToggleBtnMenu_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BackgroundImageBrush.Opacity = 1;
+        }
+
+        private void ToggleBtnMenu_Checked(object sender, RoutedEventArgs e)
+        {
+            BackgroundImageBrush.Opacity = 0.3;
+        }
+
+        private void GridBackground_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ToggleBtnMenu.IsChecked = false;
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
